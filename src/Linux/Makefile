@@ -75,10 +75,12 @@ ifeq ($(RTMETRIC),yes)
 	CFLAGS += -DHSF_RTMETRIC
 endif
 
-# Docker containers
+# Docker containers (mutually exclusive with LIBVIRT and XEN_DDK)
 ifeq ($(DOCKER),yes)
 	CFLAGS += -DHSF_DOCKER -I$(JSONDIR)
 	LIBS += $(JSONDIR)/libjson.a -lm -lcap
+	LIBVIRT=no
+	XEN_DDK=no
 endif
 
 # Check to see if container counters are under /sys/fs/cgroup/cpuacct/system.slice/ (Fedora)
